@@ -42,6 +42,7 @@ int main(int argc, char **argv)
             students[size_std] = create_student(id, name, year, gender_to_value(gender));
             size_std++;
             is_initial_state = 0;
+
         } else if (strcmp(command, "dorm-add") == 0) {
             char name[10], size_str[5], gender[10];
             unsigned short int capacity = 0;
@@ -53,6 +54,7 @@ int main(int argc, char **argv)
 
             dorms[size_dorm] = create_dorm(name, capacity, gender_to_value(gender));
             size_dorm++;
+
         } else if (strcmp(command, "assign-student") == 0) {
             char id[10], dorm_name[30];
             strcpy(id, strtok(NULL, "#"));
@@ -68,6 +70,7 @@ int main(int argc, char **argv)
             dorm_idx = get_index_dorm(dorms, size_dorm, dorm_name);
 
             assign_student(students, dorms, student_idx, dorm_idx);
+
         } else if (strcmp(command, "dorm-empty") == 0) {
             char dorm_name[30];
             strcpy(dorm_name, strtok(NULL, "#"));
@@ -75,6 +78,7 @@ int main(int argc, char **argv)
             unsigned short int dorm_idx = get_index_dorm(dorms, size_dorm, dorm_name);
 
             dorm_empty(students, dorms, dorm_idx, size_std);
+
         } else if (strcmp(command, "move-student") == 0) {
             char id[10], new_dorm_name[30];
             strcpy(id, strtok(NULL, "#"));
@@ -89,6 +93,7 @@ int main(int argc, char **argv)
             new_dorm_idx = get_index_dorm(dorms, size_dorm, new_dorm_name);
 
             move_student(students, dorms, &dorms[new_dorm_idx], student_idx, new_dorm_idx);
+
         } else if (strcmp(command, "student-leave") == 0) {
             char id[10];
             strcpy(id, strtok(NULL, "#"));
@@ -100,7 +105,8 @@ int main(int argc, char **argv)
             if (found == 0) continue;
 
             student_leave(students, dorms, student_idx);
-        } else if (strcmp(command, "---") == 0) {
+        }
+         else if (strcmp(command, "---") == 0) {
             break;
         }
     }
