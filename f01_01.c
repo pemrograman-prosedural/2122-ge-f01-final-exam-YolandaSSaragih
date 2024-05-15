@@ -75,6 +75,34 @@ int main(int argc, char **argv)
             unsigned short int dorm_idx = get_index_dorm(dorms, size_dorm, dorm_name);
 
             dorm_empty(students, dorms, dorm_idx, size_std);
+        } else if (strcmp(command, "move-student") == 0) {
+            char id[10], new_dorm_name[30];
+            strcpy(id, strtok(NULL, "#"));
+            strcpy(new_dorm_name, strtok(NULL, "#"));
+
+            unsigned short int student_idx = 0;
+            unsigned short int new_dorm_idx = 0;
+            int found = 0;
+
+            student_idx = get_index_student(students, size_std, id, &found);
+            if (found == 0) continue;
+            new_dorm_idx = get_index_dorm(dorms, size_dorm, new_dorm_name);
+
+            move_student(students, dorms, &dorms[new_dorm_idx], student_idx, new_dorm_idx);
+        } else if (strcmp(command, "student-leave") == 0) {
+            char id[10];
+            strcpy(id, strtok(NULL, "#"));
+
+            unsigned short int student_idx = 0;
+            int found = 0;
+
+            student_idx = get_index_student(students, size_std, id, &found);
+            if (found == 0) continue;
+
+            student_leave(students, dorms, student_idx);
+        } else if (strcmp(command, "---") == 0) {
+            break;
+        }
     }
 
     free(students);
